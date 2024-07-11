@@ -8,12 +8,26 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [count, setCount] = useState(1);
+  const [text, setText] = useState("");
+  const [isShow, setIsShow] = useState(true);
 
   const handleClick = useCallback(() => {
     if (count < 10) {
       setCount((count) => count + 1);
     }
   }, [count]);
+
+  const handleDisplay = useCallback(() => {
+    setIsShow((isShow) => !isShow);
+  }, []);
+
+  const handleChange = useCallback((e) => {
+    if (e.target.value.length > 5) {
+      alert("5文字以内にしてください");
+      return;
+    }
+    setText(e.target.value.trim());
+  }, []);
 
   useEffect(() => {
     // returnまでに書いている処理がマウント時
@@ -32,10 +46,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <h1>{count}</h1>
+      {isShow ? <h1>{count}</h1> : null}
       <button href="/about" onClick={handleClick}>
         ボタン
       </button>
+      <button onClick={handleDisplay}>{isShow ? "非表示" : "表示"}</button>
+      <input type="text" value={text} onChange={handleChange} />
       <Main page="Index" />
       <Footer />
       <Styles />
