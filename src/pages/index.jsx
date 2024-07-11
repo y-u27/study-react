@@ -4,7 +4,7 @@ import Styles from "./Styles";
 import { Footer } from "../components/Footer";
 import { Main } from "../components/Main";
 import { Header } from "../components/Header";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 // const handleClick = (e) => {
 //   console.log(e.target.href);
@@ -20,7 +20,20 @@ export default function Home() {
     alert(foo)
   },[]);
 
+  useEffect(() => {
+    console.log("マウント時");
+    // returnまでに書いている処理がマウント時
+    document.body.style.backgroundColor = "lightblue";
+    // return以降がアンマウント時の処理
+    return () => {
+      console.log("アンマウント時");
+      document.body.style.backgroundColor = "";
+    };
+    // []に変数などを入れることによって、useEffectやuseCallbackの処理をもう一度実行させることができる
+  }, []);
+
   return (
+
     <div className={styles.container}>
       <Head>
         <title>Index Page</title>
