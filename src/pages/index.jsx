@@ -4,20 +4,16 @@ import Styles from "./Styles";
 import { Footer } from "../components/Footer";
 import { Main } from "../components/Main";
 import { Header } from "../components/Header";
-import { useEffect, useState } from "react";
-
-// const handleClick = (e) => {
-//   console.log(e.target.href);
-//   e.preventDefault();
-// };
+import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [count, setCount] = useState(1);
 
-  const handleClick = (e) => {
-    setCount((foo) => foo + 1);
-    setCount((foo) => foo + 1);
-  };
+  const handleClick = useCallback(() => {
+    if (count < 10) {
+      setCount((count) => count + 1);
+    }
+  }, [count]);
 
   useEffect(() => {
     // returnまでに書いている処理がマウント時
